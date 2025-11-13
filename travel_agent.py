@@ -363,6 +363,9 @@ summary_chain = RunnableSequence(summary_prompt | llm | StrOutputParser())
 
 def simulate_tool_calls(structured_json_str: str) -> Dict[str, Any]:
     """Simulate tool calls to fetch flight and hotel data"""
+    st.write('1')
+    st.write(structured_json_str)
+    st.write('2')
     try:
         structured_data = json.loads(structured_json_str)
         st.write('structured json')
@@ -372,7 +375,7 @@ def simulate_tool_calls(structured_json_str: str) -> Dict[str, Any]:
     if structured_data.get("query_type") == "off_topic":
         st.write('offtopic')
         return {"final_state": json.dumps(structured_data, indent=2)}
-
+    st.write(structured_data)
     origin = structured_data.get("origin_city") or ""
     st.write('orgin')
     st.write(orgin)
