@@ -1,9 +1,32 @@
-streamlit
-langchain-openai
-langchain-core
-langchain-community
-gspread
-google-auth
-pandas
-python-dotenv
-pytz
+
+
+# Core Dependencies
+streamlit>=1.28.0
+pandas>=2.0.0
+
+# LangChain & OpenAI
+langchain>=0.1.0
+langchain-openai>=0.0.5
+langchain-community>=0.0.20
+openai>=1.0.0
+
+# Tracing & Monitoring
+langsmith>=0.1.0
+langchain-core>=0.1.0
+
+# Alternative tracing options (optional - choose one):
+# langfuse>=2.0.0  # Open source alternative
+# phoenix>=3.0.0   # Arize Phoenix for local tracing
+
+# Google Sheets Integration
+gspread>=5.12.0
+google-auth>=2.23.0
+google-auth-oauthlib>=1.1.0
+google-auth-httplib2>=0.1.1
+
+# Utilities
+pytz>=2023.3
+
+# Optional: Enhanced monitoring
+# prometheus-client>=0.19.0  # For metrics
+# sentry-sdk>=1.40.0         # For error tracking
