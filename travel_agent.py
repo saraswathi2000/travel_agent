@@ -420,7 +420,7 @@ def simulate_tool_calls(structured_json_str: str) -> Dict[str, Any]:
     st.write(4)
     origin = structured_data.get("origin_city") or ""
     st.write('orgin')
-    st.write(orgin)
+    st.write(origin)
     destination = structured_data.get("destination_city") or ""
     st.write('destination')
     st.write(destination)
