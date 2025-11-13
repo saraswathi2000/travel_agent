@@ -375,7 +375,9 @@ def simulate_tool_calls(structured_json_str: str) -> Dict[str, Any]:
     if structured_data.get("query_type") == "off_topic":
         st.write('offtopic')
         return {"final_state": json.dumps(structured_data, indent=2)}
+    st.write(3)
     st.write(structured_data)
+    st.write(4)
     origin = structured_data.get("origin_city") or ""
     st.write('orgin')
     st.write(orgin)
