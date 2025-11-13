@@ -367,15 +367,30 @@ def simulate_tool_calls(structured_json_str: str) -> Dict[str, Any]:
     st.write('1')
     st.write(structured_json_str)
     st.write('2')
-    try:
-        st.write('here')
-        structured_data = json.loads(structured_json_str)
-        # structured_data = structured_json_str
-        st.write('nowhere')
-        st.write(structured_json)
-        st.write('structured json')
-    except json.JSONDecodeError:
+    if isinstance(structured_json_str, str):
+        try:
+            st.write('structured_Data1')
+            st.write(structured_json_str)
+            structured_data = json.loads(structured_json_str)
+            st.write('structured_data')
+            st.write(structured_data)
+        except json.JSONDecodeError:
+            structured_data = {}
+    elif isinstance(structured_json_str, dict):
+        structured_data = structured_json_str
+    else:
         structured_data = {}
+    st.write(3)
+    st.write(structured_data)
+    # try:
+    #     st.write('here')
+    #     structured_data = json.loads(structured_json_str)
+    #     # structured_data = structured_json_str
+    #     st.write('nowhere')
+    #     st.write(structured_json)
+    #     st.write('structured json')
+    # except json.JSONDecodeError:
+    #     structured_data = {}
 
     if structured_data.get("query_type") == "off_topic":
         st.write('offtopic')
