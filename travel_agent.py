@@ -359,23 +359,39 @@ Stay focused, relevant, and helpful. Only discuss travel-related topics.
 summary_chain = RunnableSequence(summary_prompt | llm | StrOutputParser())
 
 
+def safe_parse_json(possible_json):
+    if isinstance(possible_json, dict):
+        return possible_json
+    
+    if not isinstance(possible_json, str):
+        return {}
 
+    # 🧹 Clean markdown code fences and trailing garbage
+    cleaned = re.sub(r"^```(?:json)?", "", possible_json.strip(), flags=re.IGNORECASE)
+    cleaned = re.sub(r"```$", "", cleaned.strip())
+    cleaned = cleaned.replace("undefined", "").strip()
+
+    try:
+        return json.loads(cleaned)
+    except json.JSONDecodeError as e:
+        print(f"⚠️ JSON decode failed: {e}")
+        print(f"🔹 Cleaned string was: {cleaned[:200]}")
+        return {}
 
 def simulate_tool_calls(structured_json_str: str) -> Dict[str, Any]:
     import json
     """Simulate tool calls to fetch flight and hotel data"""
     st.write('1')
-    st.write("Type of structured_json_str:", type(structured_json_str))
     st.write("Value of structured_json_str:", structured_json_str)
 
-    st.write(type(structured_json_str))
-    st.write(structured_json_str)
+   
     st.write('2')
     if isinstance(structured_json_str, str):
         try:
             st.write('structured_Data1')
             st.write(structured_json_str)
-            structured_data = json.loads(structured_json_str)
+            # structured_data = json.loads(structured_json_str)
+            structured_data = safe_parse_json(structured_json_str)
             st.write('structured_data')
             st.write(structured_data)
         except json.JSONDecodeError:
