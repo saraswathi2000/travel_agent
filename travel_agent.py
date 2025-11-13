@@ -362,14 +362,15 @@ summary_chain = RunnableSequence(summary_prompt | llm | StrOutputParser())
 
 
 def simulate_tool_calls(structured_json_str: str) -> Dict[str, Any]:
+    import json
     """Simulate tool calls to fetch flight and hotel data"""
     st.write('1')
     st.write(structured_json_str)
     st.write('2')
     try:
         st.write('here')
-        # structured_data = json.loads(structured_json_str)
-        structured_data = structured_json_str
+        structured_data = json.loads(structured_json_str)
+        # structured_data = structured_json_str
         st.write('nowhere')
         st.write(structured_json)
         st.write('structured json')
