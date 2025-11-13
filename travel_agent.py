@@ -368,7 +368,8 @@ def simulate_tool_calls(structured_json_str: str) -> Dict[str, Any]:
     st.write('2')
     try:
         st.write('here')
-        structured_data = json.loads(structured_json_str)
+        # structured_data = json.loads(structured_json_str)
+        structured_data = structured_json_str
         st.write('nowhere')
         st.write('structured json')
     except json.JSONDecodeError:
