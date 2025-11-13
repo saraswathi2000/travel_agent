@@ -365,17 +365,27 @@ def simulate_tool_calls(structured_json_str: str) -> Dict[str, Any]:
     """Simulate tool calls to fetch flight and hotel data"""
     try:
         structured_data = json.loads(structured_json_str)
+        st.write('structured json')
     except json.JSONDecodeError:
         structured_data = {}
 
     if structured_data.get("query_type") == "off_topic":
+        st.write('offtopic')
         return {"final_state": json.dumps(structured_data, indent=2)}
 
     origin = structured_data.get("origin_city") or ""
+    st.write('orgin')
+    st.write(orgin)
     destination = structured_data.get("destination_city") or ""
+    st.write('destination')
+    st.write(destination)
     start_date = structured_data.get("start_date")
+    st.write(start_date)
+    
     budget = structured_data.get("budget_usd")
+    st.write(budget)
     nights = structured_data.get("trip_length_days") or 3
+    st.write(nights)
     budget_per_night = None
 
     if budget:
@@ -391,10 +401,16 @@ def simulate_tool_calls(structured_json_str: str) -> Dict[str, Any]:
 
     try:
         flights_df = load_sheet_data(SHEET_NAME, "flights_data")
+        st.write('flights_df',flights_df)
         hotels_df = load_sheet_data(SHEET_NAME, "hotels_data")
+        st.write(hotels_df)
 
         flights = find_flights(flights_df, origin, destination, prefer_date=start_date, budget_usd=budget)
+        st.write('flights')
+        st.write(flights)
         hotels = find_hotels(hotels_df, destination, budget_per_night=budget_per_night)
+        st.write('hotels')
+        st.write(hotels)
     except Exception as e:
         flights = []
         hotels = []
@@ -403,7 +419,8 @@ def simulate_tool_calls(structured_json_str: str) -> Dict[str, Any]:
         "flight_options": flights,
         "hotel_options": hotels
     }
-
+    st.write('structured_data')
+    st.write(structured_data)
     return {"final_state": json.dumps(structured_data, indent=2)}
 
 
