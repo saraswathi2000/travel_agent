@@ -9,9 +9,19 @@ SCOPES = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive"
 ]
-SERVICE_ACCOUNT_FILE = r"C:\Users\saras\Desktop\AIAgent\candidate-database-421805-c2e928dc9e6e.json"
 
-creds = Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE, scopes=SCOPES)
+# Use Streamlit secrets for credentials
+try:
+    creds = Credentials.from_service_account_info(
+        st.secrets["gcp_service_account"],
+        scopes=SCOPES
+    )
+    print("Loaded credentials from Streamlit secrets")
+except Exception as e:
+    print(f"❌ Error loading credentials: {e}")
+    print("Make sure 'gcp_service_account' is configured in Streamlit secrets!")
+    raise
+
 gc = gspread.authorize(creds)
 
 # Constants
