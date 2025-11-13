@@ -365,6 +365,9 @@ def simulate_tool_calls(structured_json_str: str) -> Dict[str, Any]:
     import json
     """Simulate tool calls to fetch flight and hotel data"""
     st.write('1')
+    st.write("Type of structured_json_str:", type(structured_json_str))
+    st.write("Value of structured_json_str:", structured_json_str)
+
     st.write(type(structured_json_str))
     st.write(structured_json_str)
     st.write('2')
